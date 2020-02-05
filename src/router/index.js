@@ -3,20 +3,37 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: "/",
-    redirect: "/index"
+    redirect: "/console"
   },
   {
-    path: "/index",
-    name: "Index",
-    component: () => import("../views/index.vue")
+    path: "/console",
+    name: "Console",
+    redirect: "/nodes",
+    component: () => import("../views/Layout/index.vue"),
+    children: [
+      {
+        path: "/nodes",
+        name: "Nodes",
+        component: () => import("../views/Console/nodes")
+      },
+      {
+        path: "/recods",
+        name: "Recodes",
+        component: () => import("../views/Console/recods")
+      },
+      {
+        path: "/deploy",
+        name: "Deploy",
+        component: () => import("../views/Console/deploy")
+      }
+    ]
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
