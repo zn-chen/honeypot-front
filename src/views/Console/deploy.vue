@@ -7,6 +7,10 @@
         <el-input v-model="form.name" style="width:500px"></el-input>
       </el-form-item>
 
+      <el-form-item label="部署地址" prop="addr">
+        <el-input v-model="form.addr" style="width:500px"></el-input>
+      </el-form-item>
+
       <el-form-item label="节点类型" prop="type">
         <el-select v-model="form.type" placeholder="请选择节点类型">
           <el-option label="SSH仿真蜜罐" value="cowrie"></el-option>
@@ -46,12 +50,14 @@ export default {
     return {
       form: {
         name: "",
+        addr: "",
         type: "",
         des: ""
       },
       deploymentCommand: "",
       rules: {
         name: [{ required: true, message: "请输入节点名称", trigger: "blur" }],
+        addr: [{ required: true, message: "请输部署的IP地址", trigger: "blur" }],
         type: [
           { required: true, message: "请选择蜜罐类型", trigger: "change" }
         ],
@@ -84,6 +90,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.deploymentCommand = "";
     }
   }
 };
